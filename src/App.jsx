@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Posts from './pages/Posts'
 import PostDetails from './pages/PostDetails'
 import NotFound from './pages/NotFound'
+import CreatePost from './pages/CreatePost'
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -30,6 +31,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/posts' element={<Posts postsList={posts} errorMessage={error} />} />
           <Route path='/posts/:id' element={<PostDetails />} />
+          <Route path='/new-post' element={<CreatePost />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </div>

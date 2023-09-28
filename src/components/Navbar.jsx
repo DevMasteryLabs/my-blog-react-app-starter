@@ -8,6 +8,7 @@ function Navbar() {
         <div className='navbar-nav'>
           <NavLink className='nav-link' to='/'>Home</NavLink>
           <NavLink className='nav-link' to='/posts'>Posts</NavLink>
+          <NavLink className='nav-link' to='/new-post'>Create</NavLink>
         </div>
       </div>
     </nav>
