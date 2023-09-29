@@ -1,20 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
 
-function PostDetails() {
+function PostDetails(props) {
+  const { postsList } = props
   const [post, setPost] = useState(null)
-  const [error, setError] = useState('')
   const { id } = useParams()
 
   useEffect(() => {
-    axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
-      .then((res) => {
-        setPost(res.data)
-      })
-      .catch((err) => {
-        setError(err.message)
-      })
+    const foundPost = postsList.find(post => post.id === Number(id))
+    if (foundPost) {
+      setPost(foundPost)
+    }
   }, [])
 
   return (
@@ -25,9 +21,10 @@ function PostDetails() {
             <>
               <h4 className='text-center'>{post.title}</h4>
               <p>{post.body}</p>
+              <button type='submit' className='btn btn-danger mx-auto d-block'>Delete</button>
             </>
           )
-          : <p className='text-danger'>{error}</p>
+          : <p className='text-danger'>Post not found</p>
       }
     </div>
   )

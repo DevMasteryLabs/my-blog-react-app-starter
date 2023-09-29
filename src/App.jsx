@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useState } from 'react'
 
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
@@ -9,19 +8,21 @@ import PostDetails from './pages/PostDetails'
 import NotFound from './pages/NotFound'
 import CreatePost from './pages/CreatePost'
 
-function App() {
-  const [posts, setPosts] = useState([]);
-  const [error, setError] = useState('');
+const INITIAL_POSTS = [
+  {
+    id: 1,
+    title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+    body: "quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto"
+  },
+  {
+    id: 2,
+    title: "qui est esse",
+    body: "est rerum tempore vitae sequi sint nihil reprehenderit dolor beatae ea dolores neque fugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis qui aperiam non debitis possimus qui neque nisi nulla"
+  }
+]
 
-  useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then((res) => {
-        setPosts(res.data.slice(0, 10))
-      })
-      .catch((err) => {
-        setError(err.message)
-      })
-  }, [])
+function App() {
+  const [posts, setPosts] = useState(INITIAL_POSTS);
 
   return (
     <BrowserRouter>
@@ -29,8 +30,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/posts' element={<Posts postsList={posts} errorMessage={error} />} />
-          <Route path='/posts/:id' element={<PostDetails />} />
+          <Route path='/posts' element={<Posts postsList={posts} />} />
+          <Route path='/posts/:id' element={<PostDetails postsList={posts} />} />
           <Route path='/new-post' element={<CreatePost />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
